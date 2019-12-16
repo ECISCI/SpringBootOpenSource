@@ -1,6 +1,6 @@
 /**
  * 首页方法封装处理
- * Copyright (c) 2019 joine
+ * Copyright (c) 2019 panda
  */
 layer.config({
     extend: 'moon/style.css',
