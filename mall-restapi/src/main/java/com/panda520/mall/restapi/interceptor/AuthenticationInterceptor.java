@@ -1,12 +1,12 @@
 package com.panda520.mall.restapi.interceptor;
 
-import com.panda520.mall.common.constant.Constants;
 import com.panda520.mall.common.exception.user.UserNotExistsException;
 import com.panda520.mall.common.exception.user.UserTokenExpiredException;
 import com.panda520.mall.common.exception.user.UserTokenInvalidException;
 import com.panda520.mall.common.exception.user.UserTokenNotExistsException;
 import com.panda520.mall.common.utils.StringUtils;
 import com.panda520.mall.restapi.annotation.PassAuth;
+import com.panda520.mall.restapi.util.Constant;
 import com.panda520.mall.restapi.util.JWTUtil;
 import com.panda520.mall.system.domain.SysUser;
 import com.panda520.mall.system.domain.SysUserMobile;
@@ -31,13 +31,14 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     public static final String USER_KEY = "userId";
     public static final String OPENID = "openid";
     public static final String SESSIONKEY = "sessionKey";
+    // 这个是规则 可以要求请求端在token前拼上该字符串
     public static final String BEARER_HEAD = "Bearer ";
 
-    @Autowired
+    @Autowired // 去查Web用户表
     private ISysUserService iUserService;
 
-    @Autowired
-    ISysUserMobileService mobileService;
+    @Autowired // 去查移动端用户表
+    private ISysUserMobileService mobileService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -64,12 +65,15 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         }
         // 判断分支
         String appType = request.getHeader("appType");
+        String loginName = JWTUtil.getLoginName(token);
 
-        if (appType.equals("0")) { // 请求来自于移动端
+        if (loginName == null) { // 如果从token中解析出来的用户名为null证明该token是错误的
+            throw new UserTokenInvalidException();
+        }
 
-            String loginName = JWTUtil.getLoginName(token);
+        if (appType.equals(Constant.REQUEST_FROM_MOBILE)) { // 请求来自于移动端
+
             SysUserMobile sysUserMobile = mobileService.selectSysUserMobileByUserName(loginName);
-
             if (sysUserMobile == null) {
                 throw new UserNotExistsException();
             }
@@ -80,12 +84,8 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             request.setAttribute(USER_KEY, sysUserMobile.getId());
             return true;
 
-        } else { // 请求来自于Web端
+        } else if (appType.equals(Constant.REQUEST_FROM_WEB)) { // 请求来自于Web端
 
-            String loginName = JWTUtil.getLoginName(token);
-            if (loginName == null) {
-                throw new UserTokenInvalidException();
-            }
             SysUser user = iUserService.selectUserByLoginName(loginName);
             if (user == null) {
                 throw new UserNotExistsException();
@@ -98,5 +98,7 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             request.setAttribute(USER_KEY, user.getUserId());
             return true;
         }
+
+        return false;
     }
 }
