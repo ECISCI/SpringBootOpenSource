@@ -13,7 +13,7 @@
     <description>熊猫商城基础管理系统</description>
     
     <properties>
-	    <joine.version>1.0</joine.version>
+	    <panda520.version>1.0</panda520.version>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -230,42 +230,42 @@
 			<dependency>
 				<groupId>com.panda520.mall</groupId>
 				<artifactId>mall-quartz</artifactId>
-				<version>${joine.version}</version>
+				<version>${panda520.version}</version>
 			</dependency>
 
 			<!-- 代码生成-->
 			<dependency>
 				<groupId>com.panda520.mall</groupId>
 				<artifactId>mall-generator</artifactId>
-				<version>${joine.version}</version>
+				<version>${panda520.version}</version>
 			</dependency>
 
 			<!-- 核心模块-->
 			<dependency>
 				<groupId>com.panda520.mall</groupId>
 				<artifactId>mall-framework</artifactId>
-				<version>${joine.version}</version>
+				<version>${panda520.version}</version>
 			</dependency>
 
 			<!-- 系统模块-->
 			<dependency>
 				<groupId>com.panda520.mall</groupId>
 				<artifactId>mall-system</artifactId>
-				<version>${joine.version}</version>
+				<version>${panda520.version}</version>
 			</dependency>
 
 			<!-- 业务模块-->
 			<dependency>
 				<groupId>com.panda520.mall</groupId>
 				<artifactId>mall-business</artifactId>
-				<version>${joine.version}</version>
+				<version>${panda520.version}</version>
 			</dependency>
 
 			<!-- 通用工具-->
 			<dependency>
 				<groupId>com.panda520.mall</groupId>
 				<artifactId>mall-common</artifactId>
-				<version>${joine.version}</version>
+				<version>${panda520.version}</version>
 			</dependency>
 		</dependencies>
     </dependencyManagement>

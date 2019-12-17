@@ -1,7 +1,7 @@
 # 项目相关配置
-joine:
+panda520:
   # 名称
-  name: joine-restapi
+  name: restapi
   # 版本
   version: 1.0.0
   # 版权年份
@@ -14,7 +14,7 @@ joine:
 # 开发环境配置
 server:
   # 服务端口
-  port: 9170
+  port: 8088
   servlet:
     # 项目contextPath
     context-path: /api
