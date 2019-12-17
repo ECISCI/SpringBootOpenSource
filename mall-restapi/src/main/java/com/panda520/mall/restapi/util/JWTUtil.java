@@ -59,6 +59,7 @@ public class JWTUtil {
         }
     }
 
+
     /**
      * 获得token中的信息无需secret解密也能获得
      *
@@ -126,6 +127,9 @@ public class JWTUtil {
         } catch (Exception exception) {
             return false;
         }
+    }
+
+    public static void main(String[] args) {
     }
 
 }

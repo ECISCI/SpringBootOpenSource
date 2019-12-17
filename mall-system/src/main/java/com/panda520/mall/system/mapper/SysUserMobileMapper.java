@@ -21,7 +21,15 @@ public interface SysUserMobileMapper {
      * @param password 密码
      * @return 单条用户信息
      */
-    SysUserMobile selectSysUserMobileByUserNameAndPassword(@Param("username")String username,@Param("password")String password);
+    SysUserMobile selectSysUserMobileByUserNameAndPassword(@Param("username") String username, @Param("password") String password);
+
+    /**
+     * 查询手机用户信息 根据用户名
+     *
+     * @param username 用户名
+     * @return 手机用户信息
+     */
+    SysUserMobile selectSysUserMobileByUserName(String username);
 
     /**
      * 查询手机用户信息

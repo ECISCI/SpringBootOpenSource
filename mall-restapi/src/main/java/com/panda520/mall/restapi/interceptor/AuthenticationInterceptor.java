@@ -9,6 +9,8 @@ import com.panda520.mall.common.utils.StringUtils;
 import com.panda520.mall.restapi.annotation.PassAuth;
 import com.panda520.mall.restapi.util.JWTUtil;
 import com.panda520.mall.system.domain.SysUser;
+import com.panda520.mall.system.domain.SysUserMobile;
+import com.panda520.mall.system.service.ISysUserMobileService;
 import com.panda520.mall.system.service.ISysUserService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,6 +36,9 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
     @Autowired
     private ISysUserService iUserService;
 
+    @Autowired
+    ISysUserMobileService mobileService;
+
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
         // 如果不是映射到方法直接通过
@@ -57,12 +62,26 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
         if (StringUtils.isBlank(token)) {
             throw new UserTokenNotExistsException();
         }
-        token = token.substring(BEARER_HEAD.length());
-
         // 判断分支
         String appType = request.getHeader("appType");
 
-        if (StringUtils.isNotBlank(appType) && Constants.APP_TYPE_MOBILE.equals(appType)) {
+        if (appType.equals("0")) { // 请求来自于移动端
+
+            String loginName = JWTUtil.getLoginName(token);
+            SysUserMobile sysUserMobile = mobileService.selectSysUserMobileByUserName(loginName);
+
+            if (sysUserMobile == null) {
+                throw new UserNotExistsException();
+            }
+            // 验证 token
+            if (!JWTUtil.verify(token, sysUserMobile.getUname(), sysUserMobile.getPassword())) {
+                throw new UserTokenExpiredException();
+            }
+            request.setAttribute(USER_KEY, sysUserMobile.getId());
+            return true;
+
+        } else { // 请求来自于Web端
+
             String loginName = JWTUtil.getLoginName(token);
             if (loginName == null) {
                 throw new UserTokenInvalidException();
@@ -77,21 +96,6 @@ public class AuthenticationInterceptor implements HandlerInterceptor {
             }
             // 设置userId到request里，后续根据userId，获取用户信息
             request.setAttribute(USER_KEY, user.getUserId());
-            return true;
-        } else {
-            String openid = JWTUtil.getTokenInfo(token, "openid");
-            String sessionKey = JWTUtil.getTokenInfo(token, "sessionKey");
-            if (openid == null) {
-                throw new UserTokenInvalidException();
-            }
-            // 验证 token
-            if (!JWTUtil.verify(token)) {
-                throw new UserTokenExpiredException();
-            }
-            // 设置userId到request里，后续根据userId，获取用户信息
-            request.setAttribute(OPENID, openid);
-            request.setAttribute(SESSIONKEY, sessionKey);
-            // TODO
             return true;
         }
     }

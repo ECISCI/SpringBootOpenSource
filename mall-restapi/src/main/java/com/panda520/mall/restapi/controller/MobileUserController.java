@@ -6,12 +6,10 @@ import com.panda520.mall.common.core.domain.ResponseResult;
 import com.panda520.mall.restapi.annotation.PassAuth;
 import com.panda520.mall.restapi.entity.login.LoginReq;
 import com.panda520.mall.restapi.entity.login.LoginRes;
-import com.panda520.mall.restapi.entity.register.RegisterReq;
 import com.panda520.mall.restapi.entity.register.RegisterRes;
 import com.panda520.mall.restapi.util.Constant;
 import com.panda520.mall.restapi.util.JWTUtil;
 import com.panda520.mall.restapi.util.UUidUtils;
-import com.panda520.mall.system.domain.SysUser;
 import com.panda520.mall.system.domain.SysUserMobile;
 import com.panda520.mall.system.service.ISysUserMobileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +18,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import java.util.UUID;
 
 @Controller
 @RequestMapping("/mobile")
@@ -34,12 +30,12 @@ public class MobileUserController extends BaseController {
     @ResponseBody
     @PassAuth
     @Log(title = "mobileLogin")
-    public ResponseResult mobileLogin(@RequestBody LoginReq req) {
+    public ResponseResult mobileLogin(@RequestBody LoginReq requestData) {
 
-        String username = req.getUsername();
-        String password = req.getPassword();
+        String username = requestData.getUsername();
+        String password = requestData.getPassword();
 
-        LoginRes res = new LoginRes();
+        LoginRes responseData = new LoginRes();
 
         SysUserMobile mobile = service.selectSysUserMobileByUserNameAndPassword(username, password);
 
@@ -49,14 +45,14 @@ public class MobileUserController extends BaseController {
         } else {
             String token = JWTUtil.sign(username, password);
 
-            res.setToken(token);
-            res.setAddress(mobile.getAddress());
-            res.setEmail(mobile.getEmail());
-            res.setPhone(mobile.getPhone());
-            res.setUserType(mobile.getUserType());
-            res.setUser_id(mobile.getId());
+            responseData.setToken(token);
+            responseData.setAddress(mobile.getAddress());
+            responseData.setEmail(mobile.getEmail());
+            responseData.setPhone(mobile.getPhone());
+            responseData.setUserType(mobile.getUserType());
+            responseData.setUser_id(mobile.getId());
         }
-        return ResponseResult.successResponse(res);
+        return ResponseResult.successResponse(responseData);
 
     }
 
@@ -64,10 +60,10 @@ public class MobileUserController extends BaseController {
     @ResponseBody
     @PassAuth
     @Log(title = "mobileRegister")
-    public ResponseResult mobileRegister(@RequestBody LoginReq req) {
+    public ResponseResult mobileRegister(@RequestBody LoginReq requestData) {
 
-        String username = req.getUsername();
-        String password = req.getPassword();
+        String username = requestData.getUsername();
+        String password = requestData.getPassword();
         String user_id = UUidUtils.uuid();
 
         // 去查数据库
@@ -86,11 +82,11 @@ public class MobileUserController extends BaseController {
             return ResponseResult.error(Constant.R_FAILED);
         }
 
-        RegisterRes res = new RegisterRes();
+        RegisterRes responseData = new RegisterRes();
         String token = JWTUtil.sign(username, password);
-        res.setToken(token);
-        res.setUser_id(user_id);
+        responseData.setToken(token);
+        responseData.setUser_id(user_id);
 
-        return ResponseResult.success(Constant.R_SUCCESS, res);
+        return ResponseResult.success(Constant.R_SUCCESS, responseData);
     }
 }
