@@ -43,6 +43,13 @@ public class SysGoodsItemServiceImpl implements ISysGoodsItemService {
         return sysGoodsItemMapper.selectSysGoodsItemList(sysGoodsItem);
     }
 
+    @Override
+    public List<SysGoodsItem> selectAllSysGoodsItemList() {
+
+
+        return sysGoodsItemMapper.selectAllSysGoodsItemList();
+    }
+
     /**
      * 新增商品
      *

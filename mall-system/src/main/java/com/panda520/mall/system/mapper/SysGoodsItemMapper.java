@@ -27,6 +27,14 @@ public interface SysGoodsItemMapper {
      */
     List<SysGoodsItem> selectSysGoodsItemList(SysGoodsItem sysGoodsItem);
 
+
+    /**
+     * 查询全部商品
+     *
+     * @return
+     */
+    List<SysGoodsItem> selectAllSysGoodsItemList();
+
     /**
      * 新增商品
      *

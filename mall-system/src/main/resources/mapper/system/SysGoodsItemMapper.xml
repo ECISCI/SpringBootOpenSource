@@ -1,79 +1,83 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
-PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.panda520.mall.system.mapper.SysGoodsItemMapper">
-    
+
     <resultMap type="SysGoodsItem" id="SysGoodsItemResult">
-        <result property="id"    column="id"    />
-        <result property="title"    column="title"    />
-        <result property="sellPoint"    column="sell_point"    />
-        <result property="price"    column="price"    />
-        <result property="num"    column="num"    />
-        <result property="barcode"    column="barcode"    />
-        <result property="image"    column="image"    />
-        <result property="cid"    column="cid"    />
-        <result property="status"    column="status"    />
-        <result property="created"    column="created"    />
-        <result property="updated"    column="updated"    />
+        <result property="id" column="id"/>
+        <result property="title" column="title"/>
+        <result property="sellPoint" column="sell_point"/>
+        <result property="price" column="price"/>
+        <result property="num" column="num"/>
+        <result property="barcode" column="barcode"/>
+        <result property="image" column="image"/>
+        <result property="cid" column="cid"/>
+        <result property="status" column="status"/>
+        <result property="created" column="created"/>
+        <result property="updated" column="updated"/>
     </resultMap>
-	
-	<sql id="selectSysGoodsItemVo">
+
+    <sql id="selectSysGoodsItemVo">
         select id, title, sell_point, price, num, barcode, image, cid, status, created, updated from sys_goods_item
     </sql>
-	
+
     <select id="selectSysGoodsItemList" parameterType="SysGoodsItem" resultMap="SysGoodsItemResult">
         <include refid="selectSysGoodsItemVo"/>
-        <where>  
-            <if test="id != null  and id != '' "> and id = #{id}</if>
-             <if test="title != null  and title != '' "> and title = #{title}</if>
-             <if test="sellPoint != null  and sellPoint != '' "> and sell_point = #{sellPoint}</if>
-             <if test="price != null "> and price = #{price}</if>
-             <if test="num != null "> and num = #{num}</if>
-             <if test="barcode != null  and barcode != '' "> and barcode = #{barcode}</if>
-             <if test="image != null  and image != '' "> and image = #{image}</if>
-             <if test="cid != null "> and cid = #{cid}</if>
-             <if test="status != null "> and status = #{status}</if>
-             <if test="created != null  and created != '' "> and created = #{created}</if>
-             <if test="updated != null  and updated != '' "> and updated = #{updated}</if>
-         </where>
+        <where>
+            <if test="id != null  and id != '' ">and id = #{id}</if>
+            <if test="title != null  and title != '' ">and title = #{title}</if>
+            <if test="sellPoint != null  and sellPoint != '' ">and sell_point = #{sellPoint}</if>
+            <if test="price != null ">and price = #{price}</if>
+            <if test="num != null ">and num = #{num}</if>
+            <if test="barcode != null  and barcode != '' ">and barcode = #{barcode}</if>
+            <if test="image != null  and image != '' ">and image = #{image}</if>
+            <if test="cid != null ">and cid = #{cid}</if>
+            <if test="status != null ">and status = #{status}</if>
+            <if test="created != null  and created != '' ">and created = #{created}</if>
+            <if test="updated != null  and updated != '' ">and updated = #{updated}</if>
+        </where>
     </select>
-    
+
     <select id="selectSysGoodsItemById" parameterType="String" resultMap="SysGoodsItemResult">
         <include refid="selectSysGoodsItemVo"/>
         where id = #{id}
     </select>
-        
+
+    <select id="selectAllSysGoodsItemList" resultMap="SysGoodsItemResult">
+        select * from sys_goods_item
+    </select>
+
     <insert id="insertSysGoodsItem" parameterType="SysGoodsItem">
         insert into sys_goods_item
-		<trim prefix="(" suffix=")" suffixOverrides=",">
-			<if test="id != null  and id != ''  ">id,</if>
-			<if test="title != null  and title != ''  ">title,</if>
-			<if test="sellPoint != null  and sellPoint != ''  ">sell_point,</if>
-			<if test="price != null  ">price,</if>
-			<if test="num != null  ">num,</if>
-			<if test="barcode != null  and barcode != ''  ">barcode,</if>
-			<if test="image != null  and image != ''  ">image,</if>
-			<if test="cid != null  ">cid,</if>
-			<if test="status != null  ">status,</if>
-			<if test="created != null  and created != ''  ">created,</if>
-			<if test="updated != null  and updated != ''  ">updated,</if>
-         </trim>
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''  ">id,</if>
+            <if test="title != null  and title != ''  ">title,</if>
+            <if test="sellPoint != null  and sellPoint != ''  ">sell_point,</if>
+            <if test="price != null  ">price,</if>
+            <if test="num != null  ">num,</if>
+            <if test="barcode != null  and barcode != ''  ">barcode,</if>
+            <if test="image != null  and image != ''  ">image,</if>
+            <if test="cid != null  ">cid,</if>
+            <if test="status != null  ">status,</if>
+            <if test="created != null  and created != ''  ">created,</if>
+            <if test="updated != null  and updated != ''  ">updated,</if>
+        </trim>
         <trim prefix="values (" suffix=")" suffixOverrides=",">
-			<if test="id != null  and id != ''  ">#{id},</if>
-			<if test="title != null  and title != ''  ">#{title},</if>
-			<if test="sellPoint != null  and sellPoint != ''  ">#{sellPoint},</if>
-			<if test="price != null  ">#{price},</if>
-			<if test="num != null  ">#{num},</if>
-			<if test="barcode != null  and barcode != ''  ">#{barcode},</if>
-			<if test="image != null  and image != ''  ">#{image},</if>
-			<if test="cid != null  ">#{cid},</if>
-			<if test="status != null  ">#{status},</if>
-			<if test="created != null  and created != ''  ">#{created},</if>
-			<if test="updated != null  and updated != ''  ">#{updated},</if>
-         </trim>
+            <if test="id != null  and id != ''  ">#{id},</if>
+            <if test="title != null  and title != ''  ">#{title},</if>
+            <if test="sellPoint != null  and sellPoint != ''  ">#{sellPoint},</if>
+            <if test="price != null  ">#{price},</if>
+            <if test="num != null  ">#{num},</if>
+            <if test="barcode != null  and barcode != ''  ">#{barcode},</if>
+            <if test="image != null  and image != ''  ">#{image},</if>
+            <if test="cid != null  ">#{cid},</if>
+            <if test="status != null  ">#{status},</if>
+            <if test="created != null  and created != ''  ">#{created},</if>
+            <if test="updated != null  and updated != ''  ">#{updated},</if>
+        </trim>
     </insert>
-	 
+
     <update id="updateSysGoodsItem" parameterType="SysGoodsItem">
         update sys_goods_item
         <trim prefix="SET" suffixOverrides=",">
@@ -91,15 +95,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where id = #{id}
     </update>
 
-	<delete id="deleteSysGoodsItemById" parameterType="String">
+    <delete id="deleteSysGoodsItemById" parameterType="String">
         delete from sys_goods_item where id = #{id}
     </delete>
-	
+
     <delete id="deleteSysGoodsItemByIds" parameterType="String">
-        delete from sys_goods_item where id in 
+        delete from sys_goods_item where id in
         <foreach item="id" collection="array" open="(" separator="," close=")">
             #{id}
         </foreach>
     </delete>
-    
+
 </mapper>

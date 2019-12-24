@@ -4,6 +4,7 @@ import com.panda520.mall.common.annotation.Log;
 import com.panda520.mall.common.core.controller.BaseController;
 import com.panda520.mall.common.core.domain.ResponseResult;
 import com.panda520.mall.common.utils.StringUtils;
+import com.panda520.mall.restapi.annotation.PassAuth;
 import com.panda520.mall.restapi.util.Constant;
 import com.panda520.mall.restapi.util.LogUtils;
 import com.panda520.mall.system.domain.SysGoodsItem;
@@ -46,7 +47,7 @@ public class GoodsController extends BaseController {
 
         String goodsId = requestData.getId();
 
-        if (goodsId != null && !StringUtils.isBlank(goodsId)) { // 要删除的商品不存在
+        if (goodsId != null && !goodsId.equals(Constant.NULL_STR)) { // 要删除的商品不存在
 
             SysGoodsItem item = service.selectSysGoodsItemById(goodsId);
             if (item == null) {
@@ -54,7 +55,7 @@ public class GoodsController extends BaseController {
             }
         } else {// 没有传递要删除的商品ID
 
-            return ResponseResult.error("非法请求参数");
+            return ResponseResult.error(Constant.REQUEST_PARAM_ERROR);
         }
         int delCode = service.deleteSysGoodsItemByIds(goodsId);
 
@@ -90,6 +91,23 @@ public class GoodsController extends BaseController {
         } else {
             LogUtils.i("商品更新失败");
             return ResponseResult.error(Constant.UPDATE_GOODS_FAILED);
+        }
+    }
+
+    @PostMapping("/queryAll")
+    @ResponseBody
+    @PassAuth
+    @Log(title = "queryAllGoodsItem")
+    public ResponseResult mobileSelectAllGoods() {
+
+        List<SysGoodsItem> sysGoodsItems = service.selectAllSysGoodsItemList();
+
+        if (sysGoodsItems.size() == 0) { // 表中没有数据
+
+            return ResponseResult.error("库表中没有商品");
+        } else { // 表中有数据,将数据包装后返回给客户端
+
+            return ResponseResult.success(sysGoodsItems);
         }
     }
 }

@@ -1,7 +1,6 @@
 package com.panda520.mall.system.domain;
 
 
-import com.panda520.mall.common.core.domain.BaseEntity;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 
@@ -11,7 +10,7 @@ import org.apache.commons.lang3.builder.ToStringStyle;
  * @author X
  * @date 2019-12-17
  */
-public class SysGoodsItem extends BaseEntity {
+public class SysGoodsItem {
 
     private static final long serialVersionUID = 1L;
 

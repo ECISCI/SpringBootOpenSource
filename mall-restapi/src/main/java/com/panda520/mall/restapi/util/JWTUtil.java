@@ -21,9 +21,9 @@ public class JWTUtil {
     private static final String SECRET_KEY = "5371f568a45e5ab1f442c38e0932aef24447139b";
 
     /**
-     * 过期时间2天
+     * 过期时间20天
      */
-    private static final long EXPIRE_TIME = 2 * 24 * 60 * 60 * 1000;
+    private static final long EXPIRE_TIME = 20 * 24 * 60 * 60 * 1000;
 
     /**
      * 校验token是否正确

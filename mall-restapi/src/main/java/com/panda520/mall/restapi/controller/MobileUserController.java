@@ -68,8 +68,9 @@ public class MobileUserController extends BaseController {
 
         // 去查数据库
         SysUserMobile user = service.selectSysUserMobileByUserNameAndPassword(username, password);
-
-        if (user != null) { // 该用户已存在
+        
+        // 如果用不为空,证明该用户已存在
+        if (user != null) { 
             return ResponseResult.error(Constant.R_EXIST);
         }
         SysUserMobile sysUserMobile = new SysUserMobile();
@@ -78,6 +79,7 @@ public class MobileUserController extends BaseController {
         sysUserMobile.setUname(username);
 
         int insertCode = service.insertSysUserMobile(sysUserMobile);
+        
         if (insertCode == 0) { // 插入数据库失败
             return ResponseResult.error(Constant.R_FAILED);
         }

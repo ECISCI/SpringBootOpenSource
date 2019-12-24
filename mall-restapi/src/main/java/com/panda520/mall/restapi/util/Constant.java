@@ -64,4 +64,16 @@ public class Constant {
     public static final String REQUEST_FROM_WEB = "1";
 
 
+    /**
+     * @描述.常用错误信息
+     */
+    public static final String REQUEST_PARAM_ERROR = "非法请求参数";
+    public static final String NO_DATA = "暂无相关数据";
+
+    /**
+     * @描述.空字符串
+     */
+    public static final String NULL_STR = "";
+
+
 }
