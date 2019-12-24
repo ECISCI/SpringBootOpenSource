@@ -2,11 +2,9 @@ package com.panda520.mall.restapi.controller;
 
 import com.panda520.mall.common.annotation.Log;
 import com.panda520.mall.common.core.domain.ResponseResult;
-import com.panda520.mall.common.utils.StringUtils;
 import com.panda520.mall.restapi.entity.pics.PicsReq;
 import com.panda520.mall.restapi.entity.pics.PicsRes;
 import com.panda520.mall.restapi.util.Constant;
-import com.panda520.mall.system.domain.SysGoodsItem;
 import com.panda520.mall.system.domain.SysPics;
 import com.panda520.mall.system.service.ISysPicsService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,13 +18,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("/pics")
-public class PicsController {
+@RequestMapping("/mobile")
+public class MPicsController {
 
     @Autowired
     ISysPicsService service;
 
-    @PostMapping("/mainHomeLunBoPics")
+    @PostMapping("/pics/mainHomeLunBoPics")
     @ResponseBody
     @Log(title = "mainHomeLunBoPics")
     public ResponseResult mobileAddGoods(@RequestBody PicsReq requestData) {

@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.panda520.mall.system.mapper.SysMobileUpdateMapper">
+    
+    <resultMap type="SysMobileUpdate" id="SysMobileUpdateResult">
+        <result property="id"    column="id"    />
+        <result property="number"    column="number"    />
+        <result property="url"    column="url"    />
+        <result property="updateTime"    column="update_time"    />
+        <result property="updateInfo"    column="update_info"    />
+    </resultMap>
+	
+	<sql id="selectSysMobileUpdateVo">
+        select id, number, url, update_time, update_info from sys_mobile_update
+    </sql>
+	
+    <select id="selectSysMobileUpdateList" parameterType="SysMobileUpdate" resultMap="SysMobileUpdateResult">
+        <include refid="selectSysMobileUpdateVo"/>
+        <where>  
+            <if test="id != null  and id != '' "> and id = #{id}</if>
+             <if test="number != null  and number != '' "> and number = #{number}</if>
+             <if test="url != null  and url != '' "> and url = #{url}</if>
+             <if test="updateTime != null  and updateTime != '' "> and update_time = #{updateTime}</if>
+             <if test="updateInfo != null  and updateInfo != '' "> and update_info = #{updateInfo}</if>
+         </where>
+    </select>
+    
+    <select id="selectSysMobileUpdateById" parameterType="String" resultMap="SysMobileUpdateResult">
+        <include refid="selectSysMobileUpdateVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertSysMobileUpdate" parameterType="SysMobileUpdate">
+        insert into sys_mobile_update
+		<trim prefix="(" suffix=")" suffixOverrides=",">
+			<if test="id != null  and id != ''  ">id,</if>
+			<if test="number != null  and number != ''  ">number,</if>
+			<if test="url != null  and url != ''  ">url,</if>
+            update_time,
+			<if test="updateInfo != null  and updateInfo != ''  ">update_info,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+			<if test="id != null  and id != ''  ">#{id},</if>
+			<if test="number != null  and number != ''  ">#{number},</if>
+			<if test="url != null  and url != ''  ">#{url},</if>
+            sysdate(),
+			<if test="updateInfo != null  and updateInfo != ''  ">#{updateInfo},</if>
+         </trim>
+    </insert>
+	 
+    <update id="updateSysMobileUpdate" parameterType="SysMobileUpdate">
+        update sys_mobile_update
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="number != null  and number != ''  ">number = #{number},</if>
+            <if test="url != null  and url != ''  ">url = #{url},</if>
+            update_time = sysdate(),
+            <if test="updateInfo != null  and updateInfo != ''  ">update_info = #{updateInfo},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+	<delete id="deleteSysMobileUpdateById" parameterType="String">
+        delete from sys_mobile_update where id = #{id}
+    </delete>
+	
+    <delete id="deleteSysMobileUpdateByIds" parameterType="String">
+        delete from sys_mobile_update where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>

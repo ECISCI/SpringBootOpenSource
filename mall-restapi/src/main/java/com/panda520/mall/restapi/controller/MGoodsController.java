@@ -19,13 +19,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import java.util.List;
 
 @Controller
-@RequestMapping("/goods")
-public class GoodsController extends BaseController {
+@RequestMapping("/mobile")
+public class MGoodsController extends BaseController {
 
     @Autowired
     ISysGoodsItemService service;
 
-    @PostMapping("/add")
+    @PostMapping("/goods/add")
     @ResponseBody
     @Log(title = "addGoods")
     public ResponseResult mobileAddGoods(@RequestBody SysGoodsItem requestData) {
@@ -85,11 +85,9 @@ public class GoodsController extends BaseController {
 
         if (updateCode == Constant.UPDATE_SUCCESS_CODE) {
 
-            LogUtils.i("商品更新成功");
             return ResponseResult.success(Constant.UPDATE_GOODS_SUCCESS, Constant.NULL_DATA);
 
         } else {
-            LogUtils.i("商品更新失败");
             return ResponseResult.error(Constant.UPDATE_GOODS_FAILED);
         }
     }
@@ -104,7 +102,7 @@ public class GoodsController extends BaseController {
 
         if (sysGoodsItems.size() == 0) { // 表中没有数据
 
-            return ResponseResult.error("库表中没有商品");
+            return ResponseResult.error("库表中没有该商品");
         } else { // 表中有数据,将数据包装后返回给客户端
 
             return ResponseResult.success(sysGoodsItems);

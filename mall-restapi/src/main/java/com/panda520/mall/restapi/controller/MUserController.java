@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 @RequestMapping("/mobile")
-public class MobileUserController extends BaseController {
+public class MUserController extends BaseController {
 
     @Autowired
     private ISysUserMobileService service;
