@@ -2,6 +2,7 @@ package com.panda520.mall.restapi.controller;
 
 import com.panda520.mall.common.annotation.Log;
 import com.panda520.mall.common.core.domain.ResponseResult;
+import com.panda520.mall.restapi.annotation.PassAuth;
 import com.panda520.mall.restapi.entity.pics.PicsReq;
 import com.panda520.mall.restapi.entity.pics.PicsRes;
 import com.panda520.mall.restapi.util.Constant;
@@ -26,6 +27,7 @@ public class MPicsController {
 
     @PostMapping("/pics/mainHomeLunBoPics")
     @ResponseBody
+    @PassAuth
     @Log(title = "mainHomeLunBoPics")
     public ResponseResult mobileAddGoods(@RequestBody PicsReq requestData) {
 

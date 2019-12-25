@@ -6,6 +6,7 @@ import com.panda520.mall.common.core.domain.ResponseResult;
 import com.panda520.mall.restapi.annotation.PassAuth;
 import com.panda520.mall.restapi.entity.login.LoginReq;
 import com.panda520.mall.restapi.entity.login.LoginRes;
+import com.panda520.mall.restapi.entity.register.RegisterReq;
 import com.panda520.mall.restapi.entity.register.RegisterRes;
 import com.panda520.mall.restapi.util.Constant;
 import com.panda520.mall.restapi.util.JWTUtil;
@@ -60,17 +61,23 @@ public class MUserController extends BaseController {
     @ResponseBody
     @PassAuth
     @Log(title = "mobileRegister")
-    public ResponseResult mobileRegister(@RequestBody LoginReq requestData) {
+    public ResponseResult mobileRegister(@RequestBody RegisterReq requestData) {
 
         String username = requestData.getUsername();
         String password = requestData.getPassword();
         String user_id = UUidUtils.uuid();
 
+        if (username.equals(Constant.NULL_STR)) {
+            return ResponseResult.error("用户名不能为空");
+        } else if (password.equals(Constant.NULL_STR)) {
+            return ResponseResult.error("密码不能为空");
+        }
+
         // 去查数据库
         SysUserMobile user = service.selectSysUserMobileByUserNameAndPassword(username, password);
-        
+
         // 如果用不为空,证明该用户已存在
-        if (user != null) { 
+        if (user != null) {
             return ResponseResult.error(Constant.R_EXIST);
         }
         SysUserMobile sysUserMobile = new SysUserMobile();
@@ -79,16 +86,10 @@ public class MUserController extends BaseController {
         sysUserMobile.setUname(username);
 
         int insertCode = service.insertSysUserMobile(sysUserMobile);
-        
+
         if (insertCode == 0) { // 插入数据库失败
             return ResponseResult.error(Constant.R_FAILED);
         }
-
-        RegisterRes responseData = new RegisterRes();
-        String token = JWTUtil.sign(username, password);
-        responseData.setToken(token);
-        responseData.setUser_id(user_id);
-
-        return ResponseResult.success(Constant.R_SUCCESS, responseData);
+        return ResponseResult.success(Constant.R_SUCCESS);
     }
 }
