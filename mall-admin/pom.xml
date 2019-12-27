@@ -58,16 +58,10 @@
             <artifactId>mall-framework</artifactId>
         </dependency>
         
-        <!-- 定时任务-->
-        <dependency>
-            <groupId>com.panda520.mall</groupId>
-            <artifactId>mall-quartz</artifactId>
-        </dependency>
-
         <!-- 代码生成-->
         <dependency>
             <groupId>com.panda520.mall</groupId>
-            <artifactId>mall-generator</artifactId>
+            <artifactId>generator</artifactId>
         </dependency>
     </dependencies>
 

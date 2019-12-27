@@ -9,7 +9,6 @@
     <version>1.0</version>
 
     <name>panda520</name>
-	<url>https://www.join-e.tech</url>
     <description>熊猫商城基础管理系统</description>
     
     <properties>
@@ -226,12 +225,6 @@
 				<version>${aliyun.sms.version}</version>
 			</dependency>
 
-			<!-- 定时任务-->
-			<dependency>
-				<groupId>com.panda520.mall</groupId>
-				<artifactId>mall-quartz</artifactId>
-				<version>${panda520.version}</version>
-			</dependency>
 
 			<!-- 代码生成-->
 			<dependency>
@@ -260,6 +253,12 @@
 				<artifactId>mall-business</artifactId>
 				<version>${panda520.version}</version>
 			</dependency>
+			<!-- 业务模块-->
+			<dependency>
+				<groupId>com.panda520.mall</groupId>
+				<artifactId>generator</artifactId>
+				<version>${panda520.version}</version>
+			</dependency>
 
 			<!-- 通用工具-->
 			<dependency>
@@ -274,14 +273,12 @@
 	    <module>mall-admin</module>
 		<module>mall-framework</module>
 		<module>mall-system</module>
-		<module>mall-quartz</module>
-		<module>mall-generator</module>
+		<module>generator</module>
         <module>mall-common</module>
-        <module>mall-restapi</module>
+        <module>mall-api</module>
 		<module>mall-business</module>
 	</modules>
     <packaging>pom</packaging>
-
 
 	<dependencies>
 

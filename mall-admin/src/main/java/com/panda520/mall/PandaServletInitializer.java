@@ -10,6 +10,6 @@ import org.springframework.boot.web.servlet.support.SpringBootServletInitializer
 public class PandaServletInitializer extends SpringBootServletInitializer {
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder application) {
-        return application.sources(MallAdminApplication.class);
+        return application.sources(AdminApplication.class);
     }
 }
