@@ -248,12 +248,12 @@
             </dependency>
             <dependency>
                 <groupId>com.it521.open</groupId>
-                <artifactId>web-api</artifactId>
+                <artifactId>ms-api</artifactId>
                 <version>${open.version}</version>
             </dependency>
             <dependency>
                 <groupId>com.it521.open</groupId>
-                <artifactId>web-admin</artifactId>
+                <artifactId>ms-admin</artifactId>
                 <version>${open.version}</version>
             </dependency>
 
@@ -273,26 +273,26 @@
             <!-- 通用工具-->
             <dependency>
                 <groupId>com.it521.open</groupId>
-                <artifactId>web-sql</artifactId>
+                <artifactId>ms-sql</artifactId>
                 <version>${open.version}</version>
             </dependency>
 
 
             <dependency>
                 <groupId>com.it521.open</groupId>
-                <artifactId>mobile-admin</artifactId>
+                <artifactId>open-admin</artifactId>
                 <version>${open.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.it521.open</groupId>
-                <artifactId>mobile-api</artifactId>
+                <artifactId>open-api</artifactId>
                 <version>${open.version}</version>
             </dependency>
 
             <dependency>
                 <groupId>com.it521.open</groupId>
-                <artifactId>mobile-sql</artifactId>
+                <artifactId>open-sql</artifactId>
                 <version>${open.version}</version>
             </dependency>
 
@@ -305,12 +305,12 @@
         <module>public-generator</module>
         <module>public-common</module>
         <module>public-business</module>
-        <module>web-api</module>
-        <module>web-admin</module>
-        <module>web-sql</module>
-        <module>mobile-api</module>
-        <module>mobile-admin</module>
-        <module>mobile-sql</module>
+        <module>ms-api</module>
+        <module>ms-admin</module>
+        <module>ms-sql</module>
+        <module>open-api</module>
+        <module>open-admin</module>
+        <module>open-sql</module>
     </modules>
     <packaging>pom</packaging>
 

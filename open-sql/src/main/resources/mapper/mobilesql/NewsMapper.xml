@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it521.open.mobilesql.mapper.NewsMapper">
+
+
+    <select id="queryNewsBanner" parameterType="map" resultType="HashMap">
+
+    SELECT  a.title,b.image_url,a.link_url,a.create_date,a.top_flag FROM table_news a
+
+    LEFT JOIN  table_images b
+
+    ON a.images_id = b.images_id
+
+	WHERE a.type = #{type} AND a.status = #{status}
+    </select>
+
+    <select id="queryNewsList" parameterType="map" resultType="HashMap">
+
+        SELECT a.title,a.link_url,a.create_date,a.top_flag,a.author,a.comment_quantity(SELECT group_concat(b.image_url)
+        FROM table_images b
+        WHERE b.images_id = a.images_id) as images_url
+        FROM table_news as a WHERE a.type =#{type} and a.status = #{status}
+    </select>
+
+</mapper>
+

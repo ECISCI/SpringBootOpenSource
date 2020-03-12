@@ -74,7 +74,7 @@
         <!-- 系统模块-->
         <dependency>
             <groupId>com.it521.open</groupId>
-            <artifactId>web-sql</artifactId>
+            <artifactId>ms-sql</artifactId>
         </dependency>
 		
 		<!-- 获取系统信息 -->

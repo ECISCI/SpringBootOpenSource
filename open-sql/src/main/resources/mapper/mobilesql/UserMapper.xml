@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.it521.open.mobilesql.mapper.UserMapper">
+
+
+    <!--根据用户名密码 查询用户-->
+    <select id="queryUserByAccountAndPassword" parameterType="map" resultType="HashMap">
+
+        select a.account,a.password,a.nickname,a.realname,a.phone
+
+        from  table_user a
+
+        where account = #{account} and password = #{password}
+
+    </select>
+
+    <!--根据用户账号查询用户-->
+    <select id="queryUserByAccount" resultType="HashMap">
+
+        select a.account,a.password,a.id,a.phone from table_user a where  account = #{account}
+
+    </select>
+
+    <insert id="registerUser" parameterType="UserDomain">
+        insert into table_user
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''  ">id,</if>
+            <if test="account != null  and account != ''  ">account,</if>
+            <if test="password != null  and password != ''  ">password,</if>
+            <if test="nickname != null  and nickname != ''  ">nickname,</if>
+            <if test="realname != null  and realname != ''  ">realname,</if>
+            <if test="phone != null  and phone != ''  ">phone,</if>
+            <if test="address != null  and address != ''  ">address,</if>
+            <if test="sign != null  and sign != ''  ">sign,</if>
+            <if test="sex != null  and sex != ''  ">sex,</if>
+            <if test="email != null  and email != ''  ">email,</if>
+            <if test="avatar != null  and avatar != ''  ">avatar,</if>
+            <if test="emailBindDate != null  and emailBindDate != ''  ">email_bind_date,</if>
+            <if test="emailUpdateDate != null  and emailUpdateDate != ''  ">email_update_date,</if>
+            <if test="locationId != null  and locationId != ''  ">location_id,</if>
+            <if test="status != null  and status != ''  ">status,</if>
+            <if test="osName != null  and osName != ''  ">os_name,</if>
+            <if test="clientVersion != null  and clientVersion != ''  ">client_version,</if>
+            <if test="registerIp != null  and registerIp != ''  ">register_ip,</if>
+            <if test="registerDate != null  and registerDate != ''  ">register_date,</if>
+            <if test="loginIp != null  and loginIp != ''  ">login_ip,</if>
+            <if test="loginDate != null  and loginDate != ''  ">login_date,</if>
+            <if test="updateDate != null  and updateDate != ''  ">update_date,</if>
+            <if test="remark != null  and remark != ''  ">remark,</if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="id != null  and id != ''  ">#{id},</if>
+            <if test="account != null  and account != ''  ">#{account},</if>
+            <if test="password != null  and password != ''  ">#{password},</if>
+            <if test="nickname != null  and nickname != ''  ">#{nickname},</if>
+            <if test="realname != null  and realname != ''  ">#{realname},</if>
+            <if test="phone != null  and phone != ''  ">#{phone},</if>
+            <if test="address != null  and address != ''  ">#{address},</if>
+            <if test="sign != null  and sign != ''  ">#{sign},</if>
+            <if test="sex != null  and sex != ''  ">#{sex},</if>
+            <if test="email != null  and email != ''  ">#{email},</if>
+            <if test="avatar != null  and avatar != ''  ">#{avatar},</if>
+            <if test="emailBindDate != null  and emailBindDate != ''  ">#{emailBindDate},</if>
+            <if test="emailUpdateDate != null  and emailUpdateDate != ''  ">#{emailUpdateDate},</if>
+            <if test="locationId != null  and locationId != ''  ">#{locationId},</if>
+            <if test="status != null  and status != ''  ">#{status},</if>
+            <if test="osName != null  and osName != ''  ">#{osName},</if>
+            <if test="clientVersion != null  and clientVersion != ''  ">#{clientVersion},</if>
+            <if test="registerIp != null  and registerIp != ''  ">#{registerIp},</if>
+            <if test="registerDate != null  and registerDate != ''  ">#{registerDate},</if>
+            <if test="loginIp != null  and loginIp != ''  ">#{loginIp},</if>
+            <if test="loginDate != null  and loginDate != ''  ">#{loginDate},</if>
+            <if test="updateDate != null  and updateDate != ''  ">#{updateDate},</if>
+            <if test="remark != null  and remark != ''  ">#{remark},</if>
+        </trim>
+    </insert>
+
+
+</mapper>
+
